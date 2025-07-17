@@ -1,0 +1,144 @@
+=> Features Covered:
+React useState hook for toggling visibility.
+
+Conditional rendering (display: none/block) for body.
+
+Interactive and clean console logs.
+
+Clear code with comments explaining logic.
+
+ Folder structure suggestion:
+css
+Copy
+Edit
+AccordionApp/
+├── src/
+│   ├── components/
+│   │   └── Accordion.js
+│   ├── App.js
+│   └── index.js
+✅ Accordion.js (Component)
+jsx
+Copy
+Edit
+import React, { useState } from 'react';
+import './Accordion.css';
+
+// Sample data for accordion
+const accordionData = [
+  {
+    title: "What is React?",
+    body: "React is a front-end JavaScript library developed by Facebook."
+  },
+  {
+    title: "What is useState?",
+    body: "useState is a React Hook that allows you to manage state in functional components."
+  },
+  {
+    title: "What is JSX?",
+    body: "JSX stands for JavaScript XML. It allows us to write HTML in React."
+  }
+];
+
+const Accordion = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  // Toggle function to show/hide accordion body
+  const toggleAccordion = (index) => {
+    if (activeIndex === index) {
+      setActiveIndex(null);
+      console.log(`Accordion ${index + 1} closed`);
+    } else {
+      setActiveIndex(index);
+      console.log(`Accordion ${index + 1} opened`);
+    }
+  };
+
+  return (
+    <div className="accordion-wrapper">
+      <h2>React Accordion</h2>
+      {accordionData.map((item, index) => (
+        <div key={index} className="accordion-item">
+          {/* Accordion Header */}
+          <div
+            className="accordion-title"
+            onClick={() => toggleAccordion(index)}
+          >
+            <h3>{item.title}</h3>
+          </div>
+
+          {/* Accordion Body - Conditional Rendering */}
+          <div
+            className="accordion-body"
+            style={{ display: activeIndex === index ? 'block' : 'none' }}
+          >
+            <p>{item.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Accordion;
+✅ Accordion.css (Optional Styling for Clarity)
+css
+Copy
+Edit
+.accordion-wrapper {
+  width: 60%;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.accordion-item {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.accordion-title {
+  background-color: #f7f7f7;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.accordion-title:hover {
+  background-color: #e2e2e2;
+}
+
+.accordion-body {
+  padding: 10px 15px;
+  background-color: #fff;
+}
+✅ App.js
+jsx
+Copy
+Edit
+import React from 'react';
+import Accordion from './components/Accordion';
+
+function App() {
+  return (
+    <div className="App">
+      <Accordion />
+    </div>
+  );
+}
+
+export default App;
+📦 To Run:
+Create a new React app with create-react-app AccordionApp
+
+Replace default files with the above.
+
+Run: npm start
+
+🔍 Console Output Example:
+bash
+Copy
+Edit
+Accordion 2 opened
+Accordion 2 closed
+Accordion 3 opened
